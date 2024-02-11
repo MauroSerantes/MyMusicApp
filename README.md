@@ -22,11 +22,14 @@ a media player service
 #### Here some screeshots of the main app presentation
 
 _Home Fragment_
+
 ![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/3e984292-9d8a-431f-ad2f-992d9d146635)
 ![fragment_home_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/2ecc37e7-1d0c-4e5c-8e65-6f4101c4ab0e)
 _Search Fragment_
+
 ![fragment_search](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/a4c46692-c916-4cdc-8af7-e1851066fcc4)
 ![fragment_search_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/a8a12d37-7897-4abe-b58b-9116810baae6)
+
 _MyMusicFragment_
 ![fragment_mymusic](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/2c498b46-bb92-4709-b763-a82ccadbc08a)
 
