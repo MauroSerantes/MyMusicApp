@@ -25,8 +25,7 @@ a media player service
 Fragment Home
 ```
 
-![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/3e984292-9d8a-431f-ad2f-992d9d146635)
-
+![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/3e984292-9d8a-431f-ad2f-992d9d146635)  
 ![fragment_home_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/2ecc37e7-1d0c-4e5c-8e65-6f4101c4ab0e)
 
 ```
