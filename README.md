@@ -63,7 +63,9 @@ Fragment MyMusic
 ### Personal Commentaries
 _This application is not finished. It works but it needs improvements. I will make those changes
 when i learn more of certains technologies_ 
+
 _Like I said at begginig i will add a logger for the ones that have an account in Dezeer_
+
 _This app uses a service but i need to add the background functionalities of it (That something that i continue learning)_
 
 ## Authors ✒️
