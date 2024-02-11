@@ -20,8 +20,10 @@ For the music reproduction the app the app contains an unique activity that uses
 a media player service
 
 #### Here some screeshots of the main app presentation
-![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/7c1a1bdd-3b44-4275-aa7b-140bec75b30c)
-![fragment_home_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/471e7e2a-85f7-4168-9a7e-b053181bc501)
+![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/3e984292-9d8a-431f-ad2f-992d9d146635)
+![fragment_home_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/2ecc37e7-1d0c-4e5c-8e65-6f4101c4ab0e)
+
+
 
 
 
