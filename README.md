@@ -26,6 +26,7 @@ Fragment Home
 ```
 
 ![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/3e984292-9d8a-431f-ad2f-992d9d146635)
+
 ![fragment_home_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/2ecc37e7-1d0c-4e5c-8e65-6f4101c4ab0e)
 
 ```
@@ -33,6 +34,7 @@ Fragment Search
 ```
 
 ![fragment_search](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/a4c46692-c916-4cdc-8af7-e1851066fcc4)
+
 ![fragment_search_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/a8a12d37-7897-4abe-b58b-9116810baae6)
 
 ```
@@ -44,6 +46,7 @@ Fragment MyMusic
 #### Artists Fragment and Tracks Fragment
 
 ![fragment_artist](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/70e37e62-f04a-456a-8ec4-a85b874489ff)
+
 ![fragment_tracks](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/36082752-7792-45e1-bc21-e1f4c1213b46)
 
 ### Media Player
