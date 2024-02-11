@@ -1,21 +1,29 @@
-# Título del Proyecto
+# MyMusic
 
-_Acá va un párrafo que describa lo que es el proyecto_
+_This is an application that allows to search music from Deezer Api and reproduce it. It is a free version until
+I add a logger_
 
-## Comenzando 🚀
+## About the app 📋
 
-_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
+The application has a main activity and three principal fragments which are accessed through a bottom navigation bar
 
-Mira **Deployment** para conocer como desplegar el proyecto.
+The three principal fragments are called Home,Search and MyMusic.
+In Home you can explore into top artists, genres, top albums and top tracks.
+In Seach you can search tracks, artists and albums by specific consult and explore
+into the top playlists.
+In MyMusic you will have the tracks that you add as favourites.
+
+Besides, the app contains two more fragments called Artists and Tracks where the 
+list of the artists by genre and the tracks of an album, artist or playlist is showed 
+
+For the music reproduction the app the app contains an unique activity that uses 
+a media player service
+
+#### Here some screeshots of the main app presentation
+![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/7c1a1bdd-3b44-4275-aa7b-140bec75b30c)
+![fragment_home_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/471e7e2a-85f7-4168-9a7e-b053181bc501)
 
 
-### Pre-requisitos 📋
-
-_Que cosas necesitas para instalar el software y como instalarlas_
-
-```
-Da un ejemplo
-```
 
 ### Instalación 🔧
 
