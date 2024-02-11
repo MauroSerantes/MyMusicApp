@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment2"
+        android:title="@string/home_button"
+        android:icon="@drawable/baseline_home_24">
+    </item>
+
+    <item
+        android:id="@+id/searchFragment"
+        android:title="@string/search_button"
+        android:icon="@drawable/baseline_search_24">
+    </item>
+
+    <item
+        android:id="@+id/myMusicFragment"
+        android:title="@string/my_music_button"
+        android:icon="@drawable/baseline_library_music_24">
+    </item>
+
+</menu>

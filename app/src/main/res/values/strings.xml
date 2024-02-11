@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">MyMusic</string>
+
+    <!-- this are the strings for bottom navigation bar-->
+    <string name="home_button">Home</string>
+    <string name="search_button">Search Music</string>
+    <string name="my_music_button">MyMusic</string>
+
+
+    <!-- this are strings for fragment home -->
+    <string name="genres_text">Genres</string>
+    <string name="top_artists">Top Artists</string>
+    <string name="top_albums">Top Albums</string>
+    <string name="top_tracks">Top Tracks</string>
+
+    <!-- this strings are for player activity -->
+    <string name="now_playing">Playing Music</string>
+
+    <!-- this strings are for track fragments -->
+    <string name="track_list">TrackList</string>
+
+    <!-- this strings are for artists fragments -->
+    <string name="artists_list">Artists</string>
+
+    <!-- this strings are for search fragment -->
+    <string name="top_Playlists">Top Playlists</string>
+    <string name="search_by_artist_hint">artist name</string>
+    <string name="search_by_album_hint">album name</string>
+    <string name="search_by_track_hint">track name</string>
+    <string name="search_by_artist">search by artist</string>
+    <string name="search_by_album">search by album</string>
+    <string name="search_by_track">search by track</string>
+    <string name="results">Results</string>
+
+    <string name="artist_response">Artist</string>
+    <string name="album_response">Album</string>
+    <string name="track_response">Track</string>
+
+
+</resources>
