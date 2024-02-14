@@ -16,7 +16,7 @@ In MyMusic you will have the tracks that you add as favourites.
 Besides, the app contains two more fragments called Artists and Tracks where the 
 list of the artists by genre and the tracks of an album, artist or playlist is showed 
 
-For the music reproduction the app the app contains an unique activity that uses 
+For the music reproduction the app contains an unique activity that uses 
 a media player service
 
 #### Here some screeshots of the main app presentation
