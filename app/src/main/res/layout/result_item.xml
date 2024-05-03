@@ -8,11 +8,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_marginVertical="10dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/bg_round_two"
         android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,9 +37,9 @@
             android:maxLines="1"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/buttonFunctionalitiesContainer"
+            app:layout_constraintEnd_toStartOf="@id/menuButton"
             android:layout_marginEnd="5dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             tools:text="Name" />
 
         <TextView
@@ -49,42 +48,27 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/playfairdisplay_bold"
             android:textColor="@color/soft_pink"
             android:textSize="15sp"
             android:maxLines="1"
             app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintEnd_toStartOf="@id/buttonFunctionalitiesContainer"
+            app:layout_constraintEnd_toStartOf="@id/menuButton"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Name"/>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/buttonFunctionalitiesContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
+        <ImageView
+            android:id="@+id/menuButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:src="@drawable/kebab_menu"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/playButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="5dp"
-                android:src="@drawable/play_icon_track"/>
-            <ImageView
-                android:id="@+id/favouriteButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/favorite"
-                android:padding="5dp"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="centerCrop"
-        app:shapeAppearance="@style/corner_radius"
+        app:shapeAppearance="@style/corner_radius_three"
         tools:src="@drawable/ic_launcher_background"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

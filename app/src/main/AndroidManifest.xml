@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <application
@@ -24,7 +25,8 @@
             android:exported="true">
         </service>
         <activity android:name=".ui.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.MyMusic">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -35,6 +37,15 @@
             android:exported="true"
             android:enabled="true">
         </activity>
+        <receiver android:name=".ui.player.notification.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="PREVIOUS"/>
+                <action android:name="PLAY"/>
+                <action android:name="NEXT"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

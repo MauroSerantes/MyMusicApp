@@ -3,9 +3,11 @@ package com.myapps.mymusic.ui.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.myapps.mymusic.R
 import com.myapps.mymusic.data.remote.model.artists.Artist
 import com.myapps.mymusic.databinding.HomeItemBinding
 import com.myapps.mymusic.domain.ArtistModel
@@ -36,7 +38,13 @@ class TopArtistsAdapter @Inject constructor(): RecyclerView.Adapter<TopArtistsAd
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ArtistModel) {
             binding.tvItemTextDescription.text = item.name
-            Picasso.get().load(item.pictureXL).into(binding.ivItemSourceImage)
+
+            if(item.pictureXL.isBlank()){
+                binding.ivItemSourceImage.background = AppCompatResources.getDrawable(context, R.drawable.no_image_available)
+            }
+            else Picasso.get().load(item.pictureXL).into(binding.ivItemSourceImage)
+
+
             binding.root.setOnClickListener {
                 onItemClickListener?.let {
                     it(item)

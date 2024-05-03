@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    android:layout_height="match_parent">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
@@ -12,26 +11,35 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/navButtons"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/main_graph"/>
+        app:navGraph="@navigation/main_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navButtons"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="@drawable/bubble"
-        app:itemIconSize="35dp"
-        app:itemIconTint="@color/white"
-        app:itemPaddingBottom="2dp"
+        app:backgroundTint="@color/transparent_black"
         app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        app:itemIconSize="30dp"
+        app:itemPaddingBottom="2dp"
+        app:itemBackground="@color/transparent_black"
         app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:menu="@menu/bottom_nav_menu" />
 
-
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mediaFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navButtons"
+        tools:layout="@layout/fragment_media_bottom_player">
+    </androidx.fragment.app.FragmentContainerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

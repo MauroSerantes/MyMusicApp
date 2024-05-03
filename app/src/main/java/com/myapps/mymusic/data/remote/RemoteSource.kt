@@ -1,17 +1,58 @@
 package com.myapps.mymusic.data.remote
 
+import androidx.compose.runtime.rememberUpdatedState
 import com.myapps.mymusic.core.mappers.toDto
 import com.myapps.mymusic.core.mappers.toDtoNullAlbum
 import com.myapps.mymusic.data.model.AlbumDto
 import com.myapps.mymusic.data.model.ArtistDto
+import com.myapps.mymusic.data.model.ChartDto
 import com.myapps.mymusic.data.model.GenreDto
-import com.myapps.mymusic.data.model.PlaylistDto
+import com.myapps.mymusic.data.model.RadioDto
 import com.myapps.mymusic.data.model.TrackDto
+import com.myapps.mymusic.data.remote.model.radio.RadioResponse
 import com.myapps.mymusic.data.remote.service.DeezerApiService
+import com.myapps.mymusic.domain.RadioModel
+import retrofit2.Response
+import retrofit2.http.Path
 import javax.inject.Inject
 
 class RemoteSource @Inject constructor(private val deezerApiService: DeezerApiService) {
 
+
+    suspend fun getTracksFromRadiosId(id:Long): DataStatus<List<TrackDto>>{
+        val result = deezerApiService.getTracksFromRadiosId(id)
+        if(result.isSuccessful){
+            return DataStatus.success(
+                result.body()?.data?.map {
+                    it.toDto()
+                }
+            )
+        }
+        return DataStatus.error(result.message())
+    }
+
+    suspend fun getRadiosByGenreId(id:Long):DataStatus<List<RadioDto>>{
+        val result = deezerApiService.getRadiosByGenreId(id)
+        if(result.isSuccessful){
+            return DataStatus.success(
+                result.body()?.data?.map {
+                    it.toDto()
+                }
+            )
+        }
+        return DataStatus.error(result.message())
+    }
+    suspend fun getTopRadios():DataStatus<List<RadioDto>>{
+        val result = deezerApiService.getTopRadios()
+        if(result.isSuccessful){
+            return DataStatus.success(
+                result.body()?.data?.map {
+                    it.toDto()
+                }
+            )
+        }
+        return DataStatus.error(result.message())
+    }
     suspend fun getGenres(): DataStatus<List<GenreDto>>{
         val result = deezerApiService.getGenres()
         if(result.isSuccessful){
@@ -24,49 +65,11 @@ class RemoteSource @Inject constructor(private val deezerApiService: DeezerApiSe
         return DataStatus.error(result.message())
     }
 
-    suspend fun getTopPlaylists(): DataStatus<List<PlaylistDto>>{
-        val result = deezerApiService.getTopPlaylists()
+    suspend fun getChart():DataStatus<ChartDto>{
+        val result = deezerApiService.getChart()
         if(result.isSuccessful){
-            return  DataStatus.success(
-                result.body()?.data?.map {
-                    it.toDto()
-                }?: emptyList()
-            )
-        }
-        return DataStatus.error(result.message())
-    }
-
-    suspend fun getTopTracks(): DataStatus<List<TrackDto>>{
-        val result = deezerApiService.getTopTracks()
-        if(result.isSuccessful){
-            return  DataStatus.success(
-                result.body()?.data?.map {
-                    it.toDto()
-                }?: emptyList()
-            )
-        }
-        return DataStatus.error(result.message())
-    }
-
-    suspend fun getTopAlbums(): DataStatus<List<AlbumDto>>{
-        val result = deezerApiService.getTopAlbums()
-        if(result.isSuccessful){
-            return  DataStatus.success(
-                result.body()?.data?.map {
-                    it.toDto()
-                }?: emptyList()
-            )
-        }
-        return DataStatus.error(result.message())
-    }
-
-    suspend fun getTopArtists(): DataStatus<List<ArtistDto>>{
-        val result = deezerApiService.getTopArtists()
-        if(result.isSuccessful){
-            return  DataStatus.success(
-                result.body()?.data?.map {
-                    it.toDto()
-                }?: emptyList()
+            return DataStatus.success(
+                result.body()?.toDto()
             )
         }
         return DataStatus.error(result.message())

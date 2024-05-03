@@ -8,33 +8,46 @@
 
 
     <!-- this are strings for fragment home -->
-    <string name="genres_text">Genres</string>
-    <string name="top_artists">Top Artists</string>
-    <string name="top_albums">Top Albums</string>
-    <string name="top_tracks">Top Tracks</string>
+    <string name="top_Playlists">Best users playlists</string>
+    <string name="top_artists">Artists of the moment</string>
+    <string name="top_albums">Check the top albums</string>
+    <string name="top_tracks">Most listened tracks</string>
 
     <!-- this strings are for player activity -->
     <string name="now_playing">Playing Music</string>
 
     <!-- this strings are for track fragments -->
     <string name="track_list">TrackList</string>
+    <string name="music_menu_add_playlist">Add to Favourites</string>
 
     <!-- this strings are for artists fragments -->
-    <string name="artists_list">Artists</string>
+    <string name="artists_list">Main artists of genre</string>
+    <string name="radio_list">Radios of Genre</string>
 
-    <!-- this strings are for search fragment -->
-    <string name="top_Playlists">Top Playlists</string>
+    <!-- this strings are for search fragment
     <string name="search_by_artist_hint">artist name</string>
     <string name="search_by_album_hint">album name</string>
     <string name="search_by_track_hint">track name</string>
     <string name="search_by_artist">search by artist</string>
     <string name="search_by_album">search by album</string>
     <string name="search_by_track">search by track</string>
-    <string name="results">Results</string>
+    <string name="results">Results</string>-->
+    <string name="search_question">What do you want to listen?</string>
+    <string name="genre_explorer">Explore Music Genres</string>
+    <string name="radio_explorer">Explore Top Radios</string>
 
     <string name="artist_response">Artist</string>
     <string name="album_response">Album</string>
     <string name="track_response">Track</string>
 
+    <!-- this is for searching data -->
+    <string name="currentSearches"> resent searches</string>
+    <string name="deleteAllSearches">Delete all Searches</string>
+    <string name="noSearches">Explore all Music</string>
+
+    <!-- this is for my music fragment-->
+    <string name="myTracks">My Library</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

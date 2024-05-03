@@ -8,8 +8,8 @@ data class Genre(
     @SerializedName("name")
     val name:String,
     @SerializedName("picture")
-    val picture:String,
+    val picture:String?,
     @SerializedName("picture_big")
-    val pictureBig:String,
+    val pictureBig:String?,
 )
 

@@ -1,6 +1,7 @@
 package com.myapps.mymusic.data.remote.model.album
 
 import com.google.gson.annotations.SerializedName
+import com.myapps.mymusic.data.model.AlbumDto
 
 data class Album(
     @SerializedName("id")
@@ -8,9 +9,9 @@ data class Album(
     @SerializedName("title")
     val title:String,
     @SerializedName("cover")
-    val cover:String,
+    val cover:String?,
     @SerializedName("cover_xl")
-    val coverXL:String,
+    val coverXL:String?,
 )
 
 

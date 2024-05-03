@@ -1,4 +1,4 @@
-package com.myapps.mymusic.ui.home.adapter
+package com.myapps.mymusic.ui.search.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,20 +8,21 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.myapps.mymusic.R
+import com.myapps.mymusic.databinding.GenresItemBinding
 import com.myapps.mymusic.databinding.HomeItemBinding
-import com.myapps.mymusic.domain.AlbumModel
+import com.myapps.mymusic.domain.GenreModel
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
-class TopAlbumsAdapter @Inject constructor() : RecyclerView.Adapter<TopAlbumsAdapter.ViewHolder>() {
+class GenresAdapter @Inject constructor() : RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
 
-    private lateinit var binding: HomeItemBinding
+    private lateinit var binding: GenresItemBinding
     private lateinit var context: Context
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        binding = HomeItemBinding.inflate(inflater, parent, false)
+        binding =  GenresItemBinding.inflate(inflater, parent, false)
         context = parent.context
         return ViewHolder()
     }
@@ -34,13 +35,13 @@ class TopAlbumsAdapter @Inject constructor() : RecyclerView.Adapter<TopAlbumsAda
     }
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: AlbumModel) {
-            binding.tvItemTextDescription.text = item.title
+        fun bind(item: GenreModel) {
+            binding.tvItemTextDescription.text = item.name
 
-            if(item.coverXL.isBlank()){
-                binding.ivItemSourceImage.background= AppCompatResources.getDrawable(context, R.drawable.no_image_available)
+            if(item.pictureBig.isBlank()){
+                binding.ivItemSourceImage.background = AppCompatResources.getDrawable(context, R.drawable.no_image_available)
             }
-            else Picasso.get().load(item.coverXL).into(binding.ivItemSourceImage)
+            else Picasso.get().load(item.pictureBig).into(binding.ivItemSourceImage)
 
             binding.root.setOnClickListener {
                 onItemClickListener?.let {
@@ -50,20 +51,21 @@ class TopAlbumsAdapter @Inject constructor() : RecyclerView.Adapter<TopAlbumsAda
         }
     }
 
-    private var onItemClickListener: ((AlbumModel) -> Unit)? = null
+    private var onItemClickListener: ((GenreModel) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (AlbumModel) -> Unit) {
+    fun setOnItemClickListener(listener: (GenreModel) -> Unit) {
         onItemClickListener = listener
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<AlbumModel>() {
-        override fun areItemsTheSame(oldItem: AlbumModel, newItem: AlbumModel): Boolean {
-            return oldItem.id == newItem.id
+    private val differCallback = object : DiffUtil.ItemCallback<GenreModel>() {
+        override fun areItemsTheSame(oldItem: GenreModel, newItem: GenreModel): Boolean {
+            return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: AlbumModel, newItem: AlbumModel): Boolean {
+        override fun areContentsTheSame(oldItem: GenreModel, newItem: GenreModel): Boolean {
             return oldItem == newItem
         }
     }
+
     val differ = AsyncListDiffer(this, differCallback)
 }

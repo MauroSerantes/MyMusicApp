@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.myapps.mymusic.R
 import com.myapps.mymusic.ui.artist.adapters.MainArtistsAdapter
 import com.myapps.mymusic.databinding.FragmentArtistsBinding
+import com.myapps.mymusic.ui.search.adapter.RadiosAdapter
+import com.myapps.mymusic.utils.getRandomBackgroundColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -42,30 +44,39 @@ class ArtistsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // load background
-        binding.rvArtists.background = ContextCompat.getDrawable(requireContext(),R.drawable.background_tracks)
+
+        binding.ivPresentation.setBackgroundColor(getRandomBackgroundColor(requireContext()))
+        binding.tvItemName.text = args.genre
 
         //config Adapter
-        binding.rvArtists.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+        binding.rvArtists.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         binding.rvArtists.adapter = artistsAdapter
 
+
         artistsAdapter.setOnItemClickListener {
-            val direction = ArtistsFragmentDirections.actionArtistsFragmentToTracksFragment(it.id,"artist",null,null)
+            val direction = ArtistsFragmentDirections.actionArtistsFragmentToTracksFragment(it.id,"artist",it.name,it.pictureXL)
             findNavController().navigate(direction)
         }
 
 
         //prepare to show data
         lifecycleScope.launch {
-            viewModel.getArtistByMusicalGenre(args.genreId)
+            viewModel.fetchGenreInformation(args.genreId)
 
             viewModel.uiState.collect{
                 when(it){
                     is ArtistsUiState.Loading->{
-
+                        binding.progressBar.visibility = View.VISIBLE
+                        binding.scrollView.visibility = View.GONE
                     }
                     is ArtistsUiState.Success->{
+                        binding.progressBar.visibility = View.GONE
+                        binding.scrollView.visibility = View.VISIBLE
                         artistsAdapter.differ.submitList(it.artists)
+                        val fragment = activity?.supportFragmentManager?.findFragmentById(R.id.mediaFragment)
+                        if(fragment!=null){
+                            binding.spacer.visibility = View.VISIBLE
+                        }
                     }
                     is ArtistsUiState.Error->{
 
@@ -73,8 +84,6 @@ class ArtistsFragment : Fragment() {
                 }
             }
         }
-
-
         //config back Button
         binding.backButton.setOnClickListener{
             findNavController().popBackStack()

@@ -1,154 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/searchBarContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/search_view_bg"
-                android:layout_alignParentStart="true"
-                app:queryHint="search"
-                app:iconifiedByDefault="false"
-                android:layout_toStartOf="@id/selectButton"
-                app:queryBackground="@color/transparent_white"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="3dp">
-            </androidx.appcompat.widget.SearchView>
-            <ImageView
-                android:id="@+id/selectButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/search_view_bg"
-                android:src="@drawable/arrow_down"
-                android:layout_marginEnd="3dp">
-            </ImageView>
-        </RelativeLayout>
-
-        <RadioGroup
-            android:id="@+id/radioGroupSelection"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchBarContainer"
-            android:orientation="vertical"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/search_view_bg"
-            android:visibility="gone">
-            <RadioButton
-                android:id="@+id/artistButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/search_by_artist"
-                android:checked="true">
-            </RadioButton>
-            <RadioButton
-                android:id="@+id/albumButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/search_by_album">
-            </RadioButton>
-            <RadioButton
-                android:id="@+id/trackButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/search_by_track">
-            </RadioButton>
-        </RadioGroup>
-
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:drawableStart="@drawable/baseline_search_24"
+            android:text="@string/search_question"
+            android:textColor="@color/white"
+            android:drawableTint="@color/white"
+            android:clickable="true"
+            android:focusable="true">
+        </androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/resultsContainer"
+            android:id="@+id/radiosContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radioGroupSelection"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_round"
-            android:layout_marginHorizontal="5dp"
-            android:visibility="gone">
-
+            app:layout_constraintTop_toBottomOf="@id/searchButton"
+            android:orientation="vertical">
             <TextView
-                android:id="@+id/tvResults"
+                android:id="@+id/tvTopRadios"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/results"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="3dp"
-                android:layout_marginStart="5dp"
-                android:textSize="25sp"
-                android:textColor="@color/platinum_gray"
-                android:fontFamily="@font/tektur_bold"
-                android:layout_gravity="center_horizontal"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSearchResults"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/playlistContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/resultsContainer"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="5dp">
-            <TextView
-                android:id="@+id/tvTopPlaylists"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/resultsContainer"
-                android:textSize="30sp"
-                android:textColor="@color/soft_pink"
-                android:text="@string/top_Playlists"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:text="@string/radio_explorer"
                 android:fontFamily="@font/tektur_bold"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
-                android:background="@drawable/border_color"/>
-
+                android:layout_marginStart="20dp">
+            </TextView>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSearchView"
+                android:id="@+id/rvRadios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTopPlaylists"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="15dp"/>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        <TextView
+            android:id="@+id/tvGenreExplorer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radiosContainer"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:text="@string/genre_explorer"
+            android:fontFamily="@font/tektur_bold"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:layout_marginStart="20dp" />
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGenres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvGenreExplorer"
+            app:layout_constraintBottom_toTopOf="@id/spacer"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginBottom="60dp"/>
+        <View
+            android:id="@+id/spacer"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+   </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

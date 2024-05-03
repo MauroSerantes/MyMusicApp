@@ -3,11 +3,11 @@ package com.myapps.mymusic.data.local.utils
 
 object DatabaseConstants {
     const val DATA_BASE_NAME = "TracksPreviewsDb"
-    const val DATA_BASE_TABLE_NAME = "Tracks"
-    const val COLUMN_NAME_ID = "id"
-    const val COLUMN_NAME_TITLE = "title"
-    const val COLUMN_NAME_PREVIEW = "preview"
-    const val COLUMN_NAME_ARTIST_NAME = "artistName"
-    const val COLUMN_NAME_ALBUM_NAME = "albumName"
-    const val COLUMN_NAME_ALBUM_COVER = "albumCover"
+    const val FAVOURITE_TRACKS= "Tracks"
+    const val TRACK_CACHE = "TrackCache"
+    const val ALBUM_CACHE = "AlbumCache"
+    const val GENRE_CACHE = "GenreCache"
+    const val ARTIST_CACHE = "ArtistCache"
+    const val PLAYLIST_CACHE = "PlaylistCache"
+    const val RADIO_CACHE = "RadioCache"
 }

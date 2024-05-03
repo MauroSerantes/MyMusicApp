@@ -8,7 +8,7 @@ data class Playlist(
     @SerializedName("title")
     val title:String,
     @SerializedName("picture")
-    val picture:String,
+    val picture:String?,
     @SerializedName("picture_xl")
-    val pictureXL:String,
+    val pictureXL:String?,
 )

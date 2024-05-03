@@ -1,51 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tracksContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.tracks.TracksFragment"
-    android:background="@color/transparent_white">
+    android:background="@color/black">
 
-
-    <RelativeLayout
-        android:id="@+id/tracksToolBar"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        app:layout_constraintStart_toStartOf="parent"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bg_round">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/arrow_down"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/track_list"
-            android:textColor="@color/black"
-            android:fontFamily="@font/tektur_bold"
-            android:textSize="22sp">
-
-        </TextView>
-    </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTracks"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/trackContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tracksToolBar"
-        app:layout_constraintBottom_toBottomOf="parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivPresentation"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_launcher_background" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:background="@drawable/gradient_black_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivCoverArt"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_marginBottom="40dp"
+                android:elevation="15dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@id/ivPresentation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/corner_radius_three"/>
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="7dp"
+                android:src="@drawable/baseline_arrow_back_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvItemName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/playfairdisplay_bold"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/rvTracks"
+                app:layout_constraintEnd_toStartOf="@id/reproduceAllButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivCoverArt"
+                tools:text="Hello"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/reproduceAllButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/light_blue"
+                android:src="@drawable/play"
+                app:borderWidth="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivPresentation"
+                app:layout_constraintEnd_toEndOf="@id/ivPresentation" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTracks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivPresentation" />
+            <View
+                android:id="@+id/spacer"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

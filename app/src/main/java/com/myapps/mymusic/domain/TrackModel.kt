@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TrackModel(
+    val id:Long,
     val title:String,
     val preview:String,
     val artistName:String,

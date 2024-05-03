@@ -5,6 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ListAdapter
+import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -36,35 +40,37 @@ class TopTracksAdapter @Inject constructor(): RecyclerView.Adapter<TopTracksAdap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(differ.currentList[position])
-        holder.setIsRecyclable(false)
+        holder.setIsRecyclable(true)
     }
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TrackModel) {
             binding.songName.text = item.title
-            Picasso.get().load(item.albumCover).into(binding.ivAlbumCoverSong)
+
+            if(item.albumCover.isBlank()){
+                binding.ivAlbumCoverSong.background = AppCompatResources.getDrawable(context,R.drawable.no_image_available)
+            }
+            else{
+                Picasso.get().load(item.albumCover).into(binding.ivAlbumCoverSong)
+            }
 
             val list = listOf(item)
             val trackList = TrackList(list,0)
 
             binding.ivPlayButton.setOnClickListener{
-                val intent = Intent(context,PlayerActivity::class.java)
-                intent.putExtra("trackList",trackList)
-                context.startActivity(intent)
+                listOfClickListeners[0](item)
             }
 
             binding.ivFavouriteButton.setOnClickListener{
-                onItemClickListener?.let {
-                    it(item)
-                }
+                listOfClickListeners[1](item)
             }
         }
     }
 
-    private var onItemClickListener: ((TrackModel) -> Unit)? = null
+    private val listOfClickListeners = ArrayList<(TrackModel)->Unit>()
 
-    fun setOnItemClickListener(listener: (TrackModel) -> Unit) {
-        onItemClickListener = listener
+    fun addOnItemClickListener(listener: (TrackModel) -> Unit) {
+        listOfClickListeners.add(listener)
     }
 
     private val differCallback = object : DiffUtil.ItemCallback<TrackModel>() {

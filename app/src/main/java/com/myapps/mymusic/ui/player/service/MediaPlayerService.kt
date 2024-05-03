@@ -5,15 +5,16 @@ import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Binder
-import android.os.Build
-import android.os.Bundle
 import android.os.IBinder
-import androidx.annotation.RequiresApi
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import androidx.core.app.NotificationManagerCompat
+import com.myapps.mymusic.domain.TrackModel
 import com.myapps.mymusic.ui.player.MusicPlayerState
 import com.myapps.mymusic.ui.player.data.TrackList
-import com.myapps.mymusic.ui.player.main.PlayerPresenter
+import com.myapps.mymusic.ui.player.notification.PlayerNotification
+import com.myapps.mymusic.ui.player.utils.ActionConstants.LOAD_TRACK_LIST
+import com.myapps.mymusic.ui.player.utils.ActionConstants.NEXT
+import com.myapps.mymusic.ui.player.utils.ActionConstants.PLAY_PAUSE
+import com.myapps.mymusic.ui.player.utils.ActionConstants.PREV
 import com.myapps.mymusic.ui.player.utils.getParcelableExtraCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,14 +24,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicBoolean
 
 
 class MediaPlayerService :Service(), MediaPlayer.OnCompletionListener,MediaPlayer.OnPreparedListener {
 
-    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var mediaPlayer:MediaPlayer
 
     private lateinit var binder: MusicBinder
+
+    private lateinit var playerNotification:PlayerNotification
 
     private val _state = MutableStateFlow(MusicPlayerState())
 
@@ -49,6 +51,7 @@ class MediaPlayerService :Service(), MediaPlayer.OnCompletionListener,MediaPlaye
     override fun onCreate() {
         super.onCreate()
         binder = MusicBinder()
+        playerNotification = PlayerNotification()
         mediaPlayer = MediaPlayer()
         mediaPlayer.setAudioAttributes(
                 (AudioAttributes.Builder()
@@ -60,20 +63,68 @@ class MediaPlayerService :Service(), MediaPlayer.OnCompletionListener,MediaPlaye
         mediaPlayer.setOnCompletionListener(this)
     }
 
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        intent?.let {
+            when(it.action){
+                LOAD_TRACK_LIST->{
+                    val trackList:TrackList? = it.getParcelableExtraCompat("serviceTrackList",TrackList::class.java)
 
-        val trackList:TrackList? = intent?.getParcelableExtraCompat("serviceTrackList",TrackList::class.java)
+                    _state.update { player->
+                        player.copy(
+                            trackList = trackList?.trackList!!,
+                            currentPosition =trackList.initPosition
+                        )
+                    }
+                    loadSong(_state.value.currentPosition)
+                }
+                PLAY_PAUSE->{
+                    if(_state.value.isPlaying){
+                        pauseMusic()
+                    }
+                    else{
+                        startMusic()
+                    }
+                }
+                PREV->{
+                    if(state.value.isPlaying) stopMusic()
 
-        _state.update {
-            it.copy(
-                trackList = trackList?.trackList!!,
-                currentPosition =trackList.initPosition
-            )
+                    if(state.value.isShuffle && !state.value.isRepeat){
+                       updateTrackPosition(state.value.trackList.indices.random())
+                    }
+                    else if(!state.value.isShuffle && !state.value.isRepeat){
+
+                        if(state.value.currentPosition - 1 < 0){
+                            updateTrackPosition(state.value.trackList.size - 1)
+                        }
+                        else{
+                            updateTrackPosition(state.value.currentPosition - 1)
+                        }
+                    }
+                    loadSong(state.value.currentPosition)
+                }
+                NEXT->{
+                    if(state.value.isPlaying) stopMusic()
+
+                    if(state.value.isShuffle && !state.value.isRepeat){
+                       updateTrackPosition((state.value.trackList.indices).random())
+                    }
+
+                    else if(!state.value.isShuffle && !state.value.isRepeat){
+
+                        updateTrackPosition(
+                            ((state.value.currentPosition.plus(1)).rem(state.value.trackList.size))
+                        )
+                    }
+                    loadSong(state.value.currentPosition)
+                }
+                else->{}
+            }
         }
-        loadSong(_state.value.currentPosition)
 
-        return super.onStartCommand(intent,flags,startId)
+       return super.onStartCommand(intent, flags, startId)
     }
+
 
     fun loadSong(position: Int){
         mediaPlayer.apply {
@@ -90,6 +141,7 @@ class MediaPlayerService :Service(), MediaPlayer.OnCompletionListener,MediaPlaye
         _state.update {
             it.copy(isPlaying = true)
         }
+        startService(_state.value.trackList[_state.value.currentPosition])
     }
 
     fun stopMusic(){
@@ -105,6 +157,7 @@ class MediaPlayerService :Service(), MediaPlayer.OnCompletionListener,MediaPlaye
         _state.update {
             it.copy(isPlaying =  false)
         }
+        startService(_state.value.trackList[_state.value.currentPosition])
     }
 
     fun updateRepeatState(){
@@ -145,20 +198,24 @@ class MediaPlayerService :Service(), MediaPlayer.OnCompletionListener,MediaPlaye
                 delay(1000)
             }
         }
-
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
+        val notificationManager = NotificationManagerCompat.from(this)
+        notificationManager.cancel(1)
         job?.cancel()
         if(mediaPlayer.isPlaying) mediaPlayer.stop()
         mediaPlayer.release()
         job = null
+        stopForeground(STOP_FOREGROUND_REMOVE)
+        stopSelf()
     }
 
+
     override fun onCompletion(mp: MediaPlayer?) {
-        if(mediaPlayer.isPlaying ) mediaPlayer.stop()
+        if(mediaPlayer.isPlaying) mediaPlayer.stop()
 
         _state.update {
             it.copy(isPlaying = false)
@@ -183,14 +240,29 @@ class MediaPlayerService :Service(), MediaPlayer.OnCompletionListener,MediaPlaye
 
     override fun onPrepared(mp: MediaPlayer?) {
         mediaPlayer.start()
-
         _state.update {
             it.copy(
-                isPlaying = mediaPlayer.isPlaying,
+                isPlaying = true,
                 currentTrackDuration = mediaPlayer.duration,
                 completionSong = false
             )
         }
         updateCurrentTime()
+        startService(_state.value.trackList[_state.value.currentPosition])
     }
+
+
+    private fun startService(trackModel: TrackModel) {
+        val notificationManager = NotificationManagerCompat.from(this)
+
+        val notification = playerNotification.createNotification(
+            this,
+            trackModel,
+            notificationManager,
+            _state.value.isPlaying
+        )
+
+        startForeground(1,notification)
+    }
+
 }

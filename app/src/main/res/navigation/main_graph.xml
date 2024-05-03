@@ -14,11 +14,6 @@
             app:destination="@id/tracksFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_homeFragment2_to_artistsFragment"
-            app:destination="@id/artistsFragment"
-            app:enterAnim="@anim/nav_default_pop_enter_anim"
-            app:exitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -36,6 +31,12 @@
             app:destination="@id/tracksFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_searchFragment_to_artistsFragment"
+            app:destination="@id/artistsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_searchingDataFragment"
+            app:destination="@id/searchingDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/tracksFragment"
@@ -49,13 +50,11 @@
             android:name="criterion"
             app:argType="string" />
         <argument
-            android:name="albumName"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="tracklistOriginName"
+            app:argType="string" />
         <argument
-            android:name="albumCover"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="tracklistCover"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/artistsFragment"
@@ -69,5 +68,16 @@
             app:destination="@id/tracksFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="genre"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchingDataFragment"
+        android:name="com.myapps.mymusic.ui.search.searchingdata.SearchingDataFragment"
+        android:label="SearchingDataFragment" >
+        <action
+            android:id="@+id/action_searchingDataFragment_to_tracksFragment"
+            app:destination="@id/tracksFragment" />
     </fragment>
 </navigation>

@@ -5,18 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.marginBottom
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2.ScrollState
+import com.myapps.mymusic.R
 import com.myapps.mymusic.databinding.FragmentHomeBinding
-import com.myapps.mymusic.ui.home.adapter.GenresAdapter
+import com.myapps.mymusic.ui.search.adapter.GenresAdapter
 import com.myapps.mymusic.ui.home.adapter.TopAlbumsAdapter
 import com.myapps.mymusic.ui.home.adapter.TopArtistsAdapter
+import com.myapps.mymusic.ui.home.adapter.TopPlaylistsAdapter
 import com.myapps.mymusic.ui.home.adapter.TopTracksAdapter
+import com.myapps.mymusic.ui.player.MediaBottomPlayer
+import com.myapps.mymusic.ui.player.data.TrackList
 import com.myapps.mymusic.ui.tracks.TracksEvents
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,7 +39,7 @@ class HomeFragment : Fragment() {
     private val viewModel by viewModels<MainViewModel>()
 
     @Inject
-    lateinit var genreAdapter: GenresAdapter
+    lateinit var playlistsAdapter: TopPlaylistsAdapter
     @Inject
     lateinit var artistsAdapter: TopArtistsAdapter
     @Inject
@@ -52,9 +61,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //genres adapter config
-        binding.rvGenresContainer.layoutManager = LinearLayoutManager(context,
+        binding.rvTopPlaylistContainer.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL,false)
-        binding.rvGenresContainer.adapter = genreAdapter
+        binding.rvTopPlaylistContainer.adapter = playlistsAdapter
 
         //top tracks adapter config
         binding.rvTopArtistsContainer.layoutManager = LinearLayoutManager(context,
@@ -67,22 +76,30 @@ class HomeFragment : Fragment() {
         binding.rvTopAlbumsContainer.adapter = albumsAdapter
 
         //top tracks adapter config
+
         binding.rvTopTracksContainer.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.VERTICAL,false)
         binding.rvTopTracksContainer.adapter = tracksAdapter
 
-
-       lifecycleScope.launch {
+        lifecycleScope.launch() {
            viewModel.uiState.collect{
                when(it){
                    is HomeUiState.Loading->{
-
+                       binding.progressBar.visibility = View.VISIBLE
+                       binding.scroll.visibility = View.GONE
                    }
                    is HomeUiState.Success->{
-                       genreAdapter.differ.submitList(it.genres)
-                       artistsAdapter.differ.submitList(it.artists)
-                       albumsAdapter.differ.submitList(it.albums)
-                       tracksAdapter.differ.submitList(it.tracks)
+                       binding.progressBar.visibility = View.GONE
+                       binding.scroll.visibility = View.VISIBLE
+                       playlistsAdapter.differ.submitList(it.chartData.topPlaylists)
+                       artistsAdapter.differ.submitList(it.chartData.topArtists)
+                       albumsAdapter.differ.submitList(it.chartData.topAlbums)
+                       tracksAdapter.differ.submitList(it.chartData.topTracks)
+
+                       val fragment = activity?.supportFragmentManager?.findFragmentById(R.id.mediaFragment)
+                       if(fragment!=null){
+                           binding.spacer.visibility = View.VISIBLE
+                       }
                    }
                    is HomeUiState.Error->{
 
@@ -98,16 +115,27 @@ class HomeFragment : Fragment() {
         }
 
         artistsAdapter.setOnItemClickListener {
-            val direction = HomeFragmentDirections.actionHomeFragment2ToTracksFragment(it.id,"artist",null,null)
+            val direction = HomeFragmentDirections.actionHomeFragment2ToTracksFragment(it.id,"artist",it.name,it.pictureXL)
             findNavController().navigate(direction)
         }
 
-        genreAdapter.setOnItemClickListener {
-            val direction = HomeFragmentDirections.actionHomeFragment2ToArtistsFragment(it.id)
+        playlistsAdapter.setOnItemClickListener {
+            val direction = HomeFragmentDirections.actionHomeFragment2ToTracksFragment(it.id,"playlist",it.title,it.pictureXL)
             findNavController().navigate(direction)
         }
 
-        tracksAdapter.setOnItemClickListener {
+        tracksAdapter.addOnItemClickListener {
+            val bundle = Bundle()
+            val trackList = TrackList(listOf(it),0)
+            bundle.putParcelable("trackList",trackList)
+            activity?.supportFragmentManager?.commit {
+                add(R.id.mediaFragment, MediaBottomPlayer::class.java,bundle)
+            }
+            binding.spacer.visibility = View.VISIBLE
+        }
+
+
+        tracksAdapter.addOnItemClickListener {
             viewModel.onEvent(events = TracksEvents.UpsertFavTrack(favTrack = it))
         }
     }

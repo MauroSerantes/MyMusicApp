@@ -6,13 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.myapps.mymusic.data.remote.model.genre.Genre
 import com.myapps.mymusic.databinding.HomeItemBinding
-import com.myapps.mymusic.domain.GenreModel
+import com.myapps.mymusic.domain.PlaylistModel
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
-class GenresAdapter @Inject constructor() : RecyclerView.Adapter<GenresAdapter.ViewHolder>() {
+class TopPlaylistsAdapter  @Inject constructor(): RecyclerView.Adapter<TopPlaylistsAdapter.ViewHolder>() {
 
     private lateinit var binding: HomeItemBinding
     private lateinit var context: Context
@@ -33,10 +32,10 @@ class GenresAdapter @Inject constructor() : RecyclerView.Adapter<GenresAdapter.V
     }
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: GenreModel) {
-            binding.tvItemTextDescription.text = item.name
-            Picasso.get().load(item.pictureBig).into(binding.ivItemSourceImage)
-            binding.root.setOnClickListener {
+        fun bind(item: PlaylistModel) {
+            binding.tvItemTextDescription.text = item.title
+            Picasso.get().load(item.pictureXL).into(binding.ivItemSourceImage)
+            binding.root.setOnClickListener{
                 onItemClickListener?.let {
                     it(item)
                 }
@@ -44,18 +43,18 @@ class GenresAdapter @Inject constructor() : RecyclerView.Adapter<GenresAdapter.V
         }
     }
 
-    private var onItemClickListener: ((GenreModel) -> Unit)? = null
+    private var onItemClickListener: ((PlaylistModel) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (GenreModel) -> Unit) {
+    fun setOnItemClickListener(listener: (PlaylistModel) -> Unit) {
         onItemClickListener = listener
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<GenreModel>() {
-        override fun areItemsTheSame(oldItem: GenreModel, newItem: GenreModel): Boolean {
-            return oldItem.name == newItem.name
+    private val differCallback = object : DiffUtil.ItemCallback<PlaylistModel>() {
+        override fun areItemsTheSame(oldItem: PlaylistModel, newItem: PlaylistModel): Boolean {
+            return oldItem.title == newItem.title
         }
 
-        override fun areContentsTheSame(oldItem: GenreModel, newItem: GenreModel): Boolean {
+        override fun areContentsTheSame(oldItem: PlaylistModel, newItem: PlaylistModel): Boolean {
             return oldItem == newItem
         }
     }

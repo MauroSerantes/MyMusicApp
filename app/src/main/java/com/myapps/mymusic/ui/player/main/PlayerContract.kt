@@ -2,6 +2,7 @@ package com.myapps.mymusic.ui.player.main
 
 import android.content.Context
 import android.content.ServiceConnection
+import android.os.Parcelable
 import com.myapps.mymusic.data.remote.model.tracks.Track
 import com.myapps.mymusic.domain.TrackModel
 import com.myapps.mymusic.ui.player.base.BaseContract
@@ -20,7 +21,7 @@ interface PlayerContract {
     }
 
     interface Presenter : BaseContract.Presenter<View>,ServiceConnection{
-        fun startingService(context: Context,trackList:TrackList)
+        fun startingService(context: Context,parcelable: Parcelable,action:String?)
         fun bindingService(context: Context)
         fun unbindingService(context: Context)
         fun stopService(context: Context)

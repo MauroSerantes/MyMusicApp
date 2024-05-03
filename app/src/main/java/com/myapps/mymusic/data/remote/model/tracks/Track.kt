@@ -5,6 +5,8 @@ import com.myapps.mymusic.data.remote.model.album.Album
 import com.myapps.mymusic.data.remote.model.artists.Artist
 
 data class Track(
+    @SerializedName("id")
+    val id:Long,
     @SerializedName("title")
     val title:String,
     @SerializedName("preview")

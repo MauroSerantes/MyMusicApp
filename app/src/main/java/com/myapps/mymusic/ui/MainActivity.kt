@@ -1,8 +1,7 @@
 package com.myapps.mymusic.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.myapps.mymusic.R
 import com.myapps.mymusic.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -36,25 +36,5 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setupActionBarWithNavController(navController,appBarConfiguration)
         binding.navButtons.setupWithNavController(navController)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            run {
-                when (destination.id) {
-                    R.id.tracksFragment-> hideBottomNavBar()
-                    R.id.artistsFragment->hideBottomNavBar()
-                    else -> showBottomNavBar()
-                }
-            }
-        }
     }
-
-    private fun hideBottomNavBar(){
-        binding.navButtons.visibility = View.GONE
-    }
-
-    private fun showBottomNavBar(){
-        binding.navButtons.visibility = View.VISIBLE
-    }
-
-
 }

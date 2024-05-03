@@ -1,70 +1,47 @@
 package com.myapps.mymusic.ui.player.main
 
-import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.os.Handler
 import android.os.IBinder
-import android.os.Looper
-import androidx.annotation.RequiresApi
-import androidx.core.os.postDelayed
-import com.myapps.mymusic.domain.TrackModel
+import android.os.Parcelable
 import com.myapps.mymusic.ui.player.service.MediaPlayerService
 import com.myapps.mymusic.ui.player.base.BasePresenter
-import com.myapps.mymusic.ui.player.data.TrackList
+import com.myapps.mymusic.ui.player.utils.ActionConstants.LOAD_TRACK_LIST
+import com.myapps.mymusic.ui.player.utils.getMediaDuration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.coroutines.CoroutineContext
 
 class PlayerPresenter: BasePresenter<PlayerContract.View>() , PlayerContract.Presenter{
 
     private var musicService: MediaPlayerService?= null
     private var serviceBounded = false
 
-    private var job:Job?=null
-
-    override fun startingService(context: Context, trackList: TrackList) {
+    override fun startingService(context: Context, parcelable: Parcelable, action:String?) {
         val intent = Intent(context,MediaPlayerService::class.java)
-        intent.putExtra("serviceTrackList",trackList)
+        intent.action = action
+        when(action!!){
+            LOAD_TRACK_LIST->{
+                intent.putExtra("serviceTrackList",parcelable)
+            }
+            else->{}
+        }
         context.startService(intent)
     }
 
 
     override fun bindingService(context: Context) {
         context.bindService(Intent(context, MediaPlayerService::class.java),this,Context.BIND_AUTO_CREATE)
-        job = CoroutineScope(Dispatchers.IO).launch {
-            while (true){
-                if(musicService?.state?.value?.completionSong == true){
-                    runBlocking(Dispatchers.Main){
-                        view?.updateSongData(musicService?.state?.value?.trackList?.get(musicService?.state?.value?.currentPosition!!)!!)
-                        view?.showPauseIcon()
-                    }
-                }
-            }
-        }
     }
-
 
 
     override fun unbindingService(context: Context) {
-        job?.cancel()
         context.unbindService(this)
-        job = null
     }
 
     override fun stopService(context: Context) {
-        job?.cancel()
         context.stopService(Intent(context, MediaPlayerService::class.java))
-        job = null
     }
 
     override fun onPlayPauseToggle() {
@@ -108,6 +85,7 @@ class PlayerPresenter: BasePresenter<PlayerContract.View>() , PlayerContract.Pre
         }
     }
 
+
     override fun onNextSong() {
         if(!serviceBounded) return
 
@@ -129,6 +107,7 @@ class PlayerPresenter: BasePresenter<PlayerContract.View>() , PlayerContract.Pre
         view?.updateSongData(musicService?.state?.value?.trackList?.get(musicService?.state?.value?.currentPosition!!)!!)
         view?.updateSongDuration(musicService?.state?.value?.currentTrackDuration!!)
     }
+
 
     override fun onPreviousSong() {
         if(!serviceBounded) return
@@ -173,11 +152,26 @@ class PlayerPresenter: BasePresenter<PlayerContract.View>() , PlayerContract.Pre
         serviceBounded = true
 
         view?.updateSongData(musicService?.state?.value?.trackList?.get(musicService?.state?.value?.currentPosition!!)!!)
-        view?.showPauseIcon()
+        view?.updateSongDuration(getMediaDuration(musicService?.state?.value?.trackList?.get(musicService?.state?.value?.currentPosition!!)!!.preview))
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            view?.updateSongDuration(musicService?.state?.value?.currentTrackDuration!!)
-        }, 2000)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            musicService?.state?.collect{ musicState ->
+
+                if(musicState.isPlaying){
+                    view?.showPauseIcon()
+                }
+                else{
+                    view?.showPlayIcon()
+                }
+
+                if(musicState.completionSong){
+                    view?.updateSongData(musicService?.state?.value?.trackList?.get(musicService?.state?.value?.currentPosition!!)!!)
+                    view?.showPauseIcon()
+                }
+
+            }
+        }
 
     }
 
