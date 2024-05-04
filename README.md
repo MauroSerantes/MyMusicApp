@@ -31,9 +31,6 @@ This notification alows to control the music service
 ```
 Fragment Home
 ```
-
-
-<img src="[https://github.com/favicon.ico](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/6e8acae5-faeb-455d-80ff-5a6a8b319a00)" width="48">
 ![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/6e8acae5-faeb-455d-80ff-5a6a8b319a00)
 ![mini_media_player](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/6d5c9b1f-59fb-4790-9ccc-add3df8bb3e3)
 
