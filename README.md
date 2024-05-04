@@ -55,10 +55,8 @@ Fragment MyMusic
 ![fragment_artists](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/d4712339-a476-4fc0-85d4-aa8a08f5bbb4) ![fragment_tracks](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/955e2ee8-ee0b-4650-aee8-53f01020b2f5) ![bottom_sheet_dialog](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/67f7f154-1de5-4e8b-a075-eb03b6e643e0)
 
 
-
 ### Media Player
 ![media_player](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/8b277431-1924-4a3f-97f6-e33d38963894)
-
 
 
 
