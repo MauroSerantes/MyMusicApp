@@ -31,36 +31,34 @@ This notification alows to control the music service
 ```
 Fragment Home
 ```
-![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/ccab6030-2019-44c3-8c67-751d5ac5658f)
-
-![mini_media_player](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/0cdd9068-79d1-48fb-93dc-fa2168d921f9)
+![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/ccab6030-2019-44c3-8c67-751d5ac5658f) ![mini_media_player](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/0cdd9068-79d1-48fb-93dc-fa2168d921f9)
 
 
 ```
 Fragment Search and Fragment Searching Data
 ```
 
-![fragment_search](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/3b0a72ef-eeb7-41a0-84dc-0007b68c5a6f)
-![fragment_searching_data](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/44d94cb6-48a1-496a-9f95-3412c8882ddf)
-![fragment_searching_data_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/b8fdf8b4-be4e-4a9c-a1a3-c3e156d7477b)
+![fragment_search](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/4b9a99af-0ac0-48f1-b31e-0eab9817ca4e) ![fragment_searching_data](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/9059110f-7f16-4e1c-b2e1-8de822e32d94) ![fragment_searching_data_2](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/6b73b3f3-5157-42be-ad14-cefc7d25a50b)
+
 
 
 ```
 Fragment MyMusic
 ```
-![fragment_MyMusic](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/da8b037f-229e-4c4b-aa16-68b8b436b2b5)
+![fragment_MyMusic](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/4f9f3198-2cf3-4992-88cd-ad3e601982c5)
+
 
 
 
 #### Artists Fragment and Tracks Fragment
 
-![fragment_artists](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/c6dfc647-801c-4c1a-845b-c1c7c123c478)
-![fragment_tracks](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/d8c44aff-4ca3-4460-873f-aff6f87834d6)
-![bottom_sheet_dialog](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/ccfb5e5e-4a18-4d72-bbdc-e1fbcb4473eb)
+![fragment_artists](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/d4712339-a476-4fc0-85d4-aa8a08f5bbb4) ![fragment_tracks](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/955e2ee8-ee0b-4650-aee8-53f01020b2f5) ![bottom_sheet_dialog](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/67f7f154-1de5-4e8b-a075-eb03b6e643e0)
+
 
 
 ### Media Player
-![media_player](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/e791aa9e-e7b9-4ae3-9ac1-124e8651788b)
+![media_player](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/8b277431-1924-4a3f-97f6-e33d38963894)
+
 
 
 
