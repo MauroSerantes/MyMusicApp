@@ -33,7 +33,8 @@ Fragment Home
 ```
 ![fragment_home](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/ccab6030-2019-44c3-8c67-751d5ac5658f)
 
-![mini_media_player](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/6d5c9b1f-59fb-4790-9ccc-add3df8bb3e3)
+![mini_media_player](https://github.com/MauroSerantes/MyMusicApp/assets/146656323/0cdd9068-79d1-48fb-93dc-fa2168d921f9)
+
 
 ```
 Fragment Search and Fragment Searching Data
