@@ -72,16 +72,17 @@ Fragment MyMusic
 * Room Database - For easy use of SQLite database
 * Retrofit - For easy consume of RESTful APIs in Android application.
 * Picasso Library - For Images
-* Service Binding
+* Foreground Service
+* Notification Manager
 
 
 ### Personal Commentaries
-_This application is not finished. It works but it needs improvements. I will make those changes
-when i learn more of certains technologies_ 
+_This application is not finished. I make a lot of changes in comparition to the first version, but stills far away of what i want.
+I will continue with all the changes and improvemets that this application needs_ 
 
 _Like I said at begginig i will add a logger for the ones that have an account in Dezeer_
 
-_This app uses a service but i need to add the background functionalities of it (That is something I continue learning)_
+_The general idea behind this app is the realization of a personal copy of Spotify_
 
 ## Authors ✒️
 
@@ -90,6 +91,5 @@ _This app uses a service but i need to add the background functionalities of it 
 ## For The Future
 
 * Improve the Ui
-* Add notifications of The Media Service
-* Better code structure
+* Add a logger
 * Testing the app
